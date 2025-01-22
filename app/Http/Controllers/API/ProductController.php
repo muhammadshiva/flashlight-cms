@@ -21,4 +21,13 @@ class ProductController extends Controller
             ]
         );
     }
+
+    public function show(Product $product): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'message' => 'Get detail product',
+            'data' => $product
+        ]);
+    }
 }

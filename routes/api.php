@@ -12,6 +12,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     ]);
 });
 
-Route::resource('product', ProductController::class)->only(['index']);
+Route::resource('product', ProductController::class)->only(['index', 'show']);
 
 require __DIR__ . '/auth.php';

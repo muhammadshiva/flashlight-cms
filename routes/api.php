@@ -12,6 +12,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     ]);
 });
 
-Route::resource('product', ProductController::class)->only(['index', 'show']);
+
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{product}', [ProductController::class, 'show']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::put('/{product}', [ProductController::class, 'update']);
+    Route::delete('/{product}', [ProductController::class, 'destroy']);
+})->middleware(['auth:sanctum']);
 
 require __DIR__ . '/auth.php';

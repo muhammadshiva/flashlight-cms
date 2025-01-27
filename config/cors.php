@@ -15,20 +15,20 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'], // Path yang diizinkan untuk akses CORS
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['*'], // Semua metode HTTP diizinkan (GET, POST, PUT, DELETE, dll.)
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
+    'allowed_origins' => ['*'], // Mengizinkan semua domain untuk akses API. Bisa diganti dengan domain spesifik.
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [], // Pola domain yang diizinkan (jika perlu menggunakan regex).
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['*'], // Semua header diizinkan
 
-    'exposed_headers' => [],
+    'exposed_headers' => [], // Header yang dapat dilihat oleh klien (opsional).
 
-    'max_age' => 0,
+    'max_age' => 0, // Durasi cache untuk preflight requests (opsional).
 
-    'supports_credentials' => true,
+    'supports_credentials' => true, // Izinkan penggunaan credentials (seperti cookies dan authorization headers).
 
 ];

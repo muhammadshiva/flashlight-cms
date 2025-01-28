@@ -25,10 +25,8 @@ return [
 
     'allowed_headers' => ['*'], // Semua header diizinkan
 
-    'exposed_headers' => [], // Header yang dapat dilihat oleh klien (opsional).
-
     'max_age' => 0, // Durasi cache untuk preflight requests (opsional).
 
-    'supports_credentials' => true, // Izinkan penggunaan credentials (seperti cookies dan authorization headers).
+    'supports_credentials' => false, // Izinkan penggunaan credentials (seperti cookies dan authorization headers).
 
 ];

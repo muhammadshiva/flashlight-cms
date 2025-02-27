@@ -13,17 +13,24 @@ class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
-        $products = Product::withCount('category')->orderBy('name', 'desc')->paginate();
+        $products = Product::with('category')->orderBy('name', 'desc')->paginate();
 
-        return response()->json(
-            [
-                'success' => true,
-                'message' => 'Get all products',
-                'data' => $products
-            ]
-        );
+        return response()->json([
+            'success' => true,
+            'message' => 'Get all products',
+            'data' => [
+                'products' => $products->items(),
+                'meta' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                    'from' => $products->firstItem(),
+                    'to' => $products->lastItem(),
+                ],
+            ],
+        ]);
     }
-
 
     public function show(Product $product): JsonResponse
     {

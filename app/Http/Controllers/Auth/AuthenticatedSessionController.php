@@ -21,13 +21,16 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        $user['token'] = $request->user()->createToken('auth')->plainTextToken;
+        $token = $user['token'] = $request->user()->createToken('auth')->plainTextToken;
 
         return response()->json([
             'success' => true,
-            'message' => 'Login successfully',
-            'data' => $user
-        ]);
+            'message' => 'Login successful',
+            'data' => [
+                'user' => $user,
+                'token' => $token,
+            ],
+        ], 200);
     }
 
     /**
@@ -35,7 +38,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $request->user()->tokens()->delete();
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
 
         Auth::guard('web')->logout();
 
@@ -45,7 +50,7 @@ class AuthenticatedSessionController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Logout successfully',
-        ]);
+            'message' => 'Logout successful',
+        ], 200);
     }
 }

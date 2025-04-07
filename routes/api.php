@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
         'data' => $request->user(),
     ]);
 });
-
 
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
@@ -25,5 +25,13 @@ Route::prefix('product')->group(function () {
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
 });
+
+Route::prefix('vehicle')->group(function () {
+    Route::get('/', [VehicleController::class, 'index']);
+    Route::get('/{vehicle}', [VehicleController::class, 'show']);
+    Route::post('/', [VehicleController::class, 'store']);
+    Route::put('/{vehicle}', [VehicleController::class, 'update']);
+    Route::delete('/{vehicle}', [VehicleController::class, 'destroy']);
+})->middleware(['auth:sanctum']);
 
 require __DIR__ . '/auth.php';
